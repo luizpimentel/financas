@@ -30,5 +30,12 @@
     "eslint-config-expo": "~58.0.4",
     "typescript": "~6.0.3",
     "vitest": "^5.1.0"
+  },
+  "expo": {
+    "install": {
+      "exclude": [
+        "expo"
+      ]
+    }
   }
 }
