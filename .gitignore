@@ -1,0 +1,28 @@
+node_modules/
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+*.log
+npm-debug.*
+.DS_Store
+
+# Segredos e ambiente local
+.env
+.env.*
+!.env.example
+*.pem
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Builds nativos gerados
+android/
+ios/
+
+# Backups e extratos reais NUNCA devem ser versionados
+backups/
+*.ofx
+*.OFX
+
