@@ -201,6 +201,8 @@ describe('T1.3A — Contrato estático da migração 00001 e blindagem de segura
     expect(sql).toContain('IDEMPOTENCY_STATE_CHANGED');
     expect(sql).toContain('EMAIL_NOT_CONFIRMED');
     expect(sql).toContain('u.email_confirmed_at');
+    expect(sql).not.toContain('pg_catalog.position');
+    expect(sql).toContain('pg_catalog.strpos(');
   });
 
   it('mantém a suíte pgTAP sincronizada com plan(57), sem PERFORM ou múltiplas instruções em lives_ok/throws_ok', () => {

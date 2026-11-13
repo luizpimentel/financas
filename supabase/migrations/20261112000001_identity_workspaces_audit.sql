@@ -171,7 +171,7 @@ DECLARE
   v_display_name TEXT;
 BEGIN
   v_email := pg_catalog.lower(pg_catalog.btrim(COALESCE(NEW.email, '')));
-  IF v_email = '' OR pg_catalog.position('@' IN v_email) <= 1 THEN
+  IF v_email = '' OR pg_catalog.strpos(v_email, '@') <= 1 THEN
     v_email := NEW.id::text || '@local.invalid';
   END IF;
 
@@ -1008,14 +1008,14 @@ BEGIN
 
   -- Obtém o e-mail autenticado a partir do JWT ou de auth.users
   v_user_email := pg_catalog.lower(pg_catalog.btrim(COALESCE(auth.jwt() ->> 'email', '')));
-  IF v_user_email = '' OR pg_catalog.position('@' IN v_user_email) <= 1 THEN
+  IF v_user_email = '' OR pg_catalog.strpos(v_user_email, '@') <= 1 THEN
     SELECT pg_catalog.lower(pg_catalog.btrim(COALESCE(u.email, '')))
     INTO v_user_email
     FROM auth.users u
     WHERE u.id = v_user_id;
   END IF;
 
-  IF COALESCE(v_user_email, '') = '' OR pg_catalog.position('@' IN v_user_email) <= 1 THEN
+  IF COALESCE(v_user_email, '') = '' OR pg_catalog.strpos(v_user_email, '@') <= 1 THEN
     v_user_email := v_user_id::text || '@local.invalid';
   END IF;
 
@@ -1118,8 +1118,8 @@ BEGIN
 
   v_clean_email := pg_catalog.lower(pg_catalog.btrim(COALESCE(p_invited_email, '')));
   IF v_clean_email = ''
-     OR pg_catalog.position('@' IN v_clean_email) <= 1
-     OR pg_catalog.position('.' IN pg_catalog.split_part(v_clean_email, '@', 2)) <= 1
+     OR pg_catalog.strpos(v_clean_email, '@') <= 1
+     OR pg_catalog.strpos(pg_catalog.split_part(v_clean_email, '@', 2), '.') <= 1
      OR pg_catalog.char_length(v_clean_email) > 254
      OR v_clean_email !~ '^[^@\s]+@[^@\s]+\.[^@\s]+$'
   THEN
