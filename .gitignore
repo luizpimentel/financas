@@ -26,3 +26,5 @@ backups/
 *.ofx
 *.OFX
 
+# Arquivos temporários da Supabase CLI
+supabase/.temp/
